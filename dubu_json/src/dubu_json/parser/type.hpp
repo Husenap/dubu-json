@@ -1,6 +1,7 @@
 #include <any>
-#include <unordered_map>
 #include <vector>
+
+#include "tree.hpp"
 
 namespace dubu::json {
 
@@ -13,7 +14,7 @@ using Boolean = bool;
 struct UnspecifiedType;
 
 class Object {
-  std::unordered_map<std::string, UnspecifiedType> members;
+  shared::ordered_map<std::string, UnspecifiedType> members;
 
 public:
   auto begin() { return members.begin(); }
