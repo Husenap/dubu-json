@@ -5,13 +5,11 @@
 
 namespace dubu::json {
 
-struct Object;
-struct Array;
 using String  = std::string;
 using Number  = double;
 using Boolean = bool;
 
-struct UnspecifiedType;
+class UnspecifiedType;
 
 class Object {
   shared::ordered_map<std::string, UnspecifiedType> members;
