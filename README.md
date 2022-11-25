@@ -1,5 +1,5 @@
-[![Build](https://github.com/Husenap/cmake-project-template/actions/workflows/build.yml/badge.svg)](https://github.com/Husenap/cmake-project-template/actions/workflows/build.yml)
+[![Build](https://github.com/Husenap/dubu-json/actions/workflows/build.yml/badge.svg)](https://github.com/Husenap/dubu-json/actions/workflows/build.yml)
 
-# cmake-project-template
+# dubu-json
 
-Basic C++ project template using CMake.
+## JSON parser written in C++
