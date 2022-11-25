@@ -1,14 +1,15 @@
-set(target_name "new_project_name")
+set(target_name "dubu_json")
 
 set(src_precompiled
-    "src/new_project_name/precompiled.hpp")
+    "src/dubu_json/precompiled.hpp")
 
-set(src_new_project_name
-    "src/new_project_name/new_project_name.hpp")
+set(src_dubu_json
+    "src/dubu_json/parser/parser.hpp"
+    "src/dubu_json/dubu_json.hpp")
 
 set(src_files
     ${src_precompiled}
-    ${src_new_project_name})
+    ${src_dubu_json})
 
 # Project
 add_library(${target_name} STATIC ${src_files})
@@ -20,8 +21,5 @@ target_link_libraries(${target_name}
 
 target_include_directories(${target_name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_precompile_headers(${target_name} PUBLIC ${src_precompiled})
-
-auto_group_sources(src_files ${CMAKE_CURRENT_SOURCE_DIR})
-source_group("src/precompiled" REGULAR_EXPRESSION "cmake_pch\.[ch]xx")
 
 set_target_properties(${target_name} PROPERTIES FOLDER ${${PROJECT_NAME}_FOLDER})
