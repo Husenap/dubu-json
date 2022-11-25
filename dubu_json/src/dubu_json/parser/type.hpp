@@ -28,12 +28,8 @@ class Array {
 public:
   auto begin() { return elements.begin(); }
   auto end() { return elements.end(); }
-  auto rbegin() { return elements.rbegin(); }
-  auto rend() { return elements.rend(); }
   auto cbegin() const { return elements.cbegin(); }
   auto cend() const { return elements.cend(); }
-  auto crbegin() const { return elements.crbegin(); }
-  auto crend() const { return elements.crend(); }
   auto size() const { return elements.size(); }
 };
 
