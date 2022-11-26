@@ -8,16 +8,6 @@ namespace dubu::json {
 
 namespace detail {
 
-// utility wrapper to adapt locale-bound facets for wstring/wbuffer convert
-// https://en.cppreference.com/w/cpp/locale/codecvt
-template <class Facet>
-struct deletable_facet : Facet {
-  template <class... Args>
-  deletable_facet(Args&&... args)
-      : Facet(std::forward<Args>(args)...) {}
-  ~deletable_facet() {}
-};
-
 class Parser {
   std::istream& in;
 
@@ -88,14 +78,28 @@ class Parser {
     case 't':
       text += '\t';
       break;
-    case 'u':
-      // https://en.cppreference.com/w/cpp/locale/codecvt#Example
-      static std::wstring_convert<deletable_facet<std::codecvt<char16_t, char, std::mbstate_t>>,
-                                  char16_t>
-           conv_16_to_8;
-      auto c = static_cast<char16_t>((hex() << 12) | (hex() << 8) | (hex() << 4) | hex());
-      text += conv_16_to_8.to_bytes(c);
+    case 'u': {
+      // https://en.cppreference.com/w/cpp/locale/codecvt/out#Example
+      static std::mbstate_t mb;
+      static auto const&    conv_16_8 =
+          std::use_facet<std::codecvt<char16_t, char, std::mbstate_t>>(std::locale());
+      static char     buffer[3];
+      const char16_t* from_next;
+      char*           to_next;
+
+      const auto c = static_cast<char16_t>((hex() << 12) | (hex() << 8) | (hex() << 4) | hex());
+
+      const auto result = conv_16_8.out(mb, &c, &c + 1, from_next, buffer, buffer + 3, to_next);
+
+      if (result == std::codecvt_base::ok) {
+        for (char* p = buffer; p != to_next; ++p) {
+          text += *p;
+        }
+      } else {
+        throw std::runtime_error("Failed to convert from UTF-16 to UTF-8!");
+      }
       break;
+    }
     }
   }
   void character(std::string& text) {
