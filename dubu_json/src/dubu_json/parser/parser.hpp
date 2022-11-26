@@ -82,18 +82,18 @@ class Parser {
       // https://en.cppreference.com/w/cpp/locale/codecvt/out#Example
       static std::mbstate_t mb;
       static auto const&    conv_16_8 =
-          std::use_facet<std::codecvt<char16_t, char, std::mbstate_t>>(std::locale());
-      static char     buffer[3];
+          std::use_facet<std::codecvt<char16_t, char8_t, std::mbstate_t>>(std::locale());
+      static char8_t  buffer[3];
       const char16_t* from_next;
-      char*           to_next;
+      char8_t*        to_next;
 
       const auto c = static_cast<char16_t>((hex() << 12) | (hex() << 8) | (hex() << 4) | hex());
 
       const auto result = conv_16_8.out(mb, &c, &c + 1, from_next, buffer, buffer + 3, to_next);
 
       if (result == std::codecvt_base::ok) {
-        for (char* p = buffer; p != to_next; ++p) {
-          text += *p;
+        for (char8_t* p = buffer; p != to_next; ++p) {
+          text += static_cast<char>(*p);
         }
       } else {
         throw std::runtime_error("Failed to convert from UTF-16 to UTF-8!");
