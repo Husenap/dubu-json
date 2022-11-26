@@ -1,4 +1,5 @@
 #include <any>
+#include <string>
 #include <vector>
 
 #include "tree.hpp"
@@ -9,12 +10,15 @@ using String  = std::string;
 using Number  = double;
 using Boolean = bool;
 
-class UnspecifiedType;
+class Value;
 
 class Object {
-  shared::ordered_map<std::string, UnspecifiedType> members;
+  ordered_map<std::string, Value> members;
 
 public:
+  Value&       operator[](std::string key) { return members[key]; }
+  Value const& operator[](std::string const& key) const { return members.at(key); }
+
   auto begin() { return members.begin(); }
   auto end() { return members.end(); }
   auto cbegin() const { return members.cbegin(); }
@@ -22,9 +26,19 @@ public:
   auto size() const { return members.size(); }
 };
 class Array {
-  std::vector<UnspecifiedType> elements;
+  std::vector<Value> elements;
 
 public:
+  Value&       operator[](std::size_t index) { return elements[index]; }
+  Value const& operator[](std::size_t index) const { return elements[index]; }
+
+  void         push(Value&& v) { elements.push_back(v); }
+  void         pop() { elements.pop_back(); }
+  Value&       front() { return elements.front(); }
+  Value const& front() const { return elements.front(); }
+  Value&       back() { return elements.back(); }
+  Value const& back() const { return elements.back(); }
+
   auto begin() { return elements.begin(); }
   auto end() { return elements.end(); }
   auto cbegin() const { return elements.cbegin(); }
@@ -32,7 +46,7 @@ public:
   auto size() const { return elements.size(); }
 };
 
-class UnspecifiedType {
+class Value {
   std::any value;
 
   template <typename T>
@@ -46,16 +60,16 @@ class UnspecifiedType {
   }
 
 public:
-  UnspecifiedType() {}
-  UnspecifiedType(Object v)
+  Value() {}
+  Value(Object v)
       : value(v) {}
-  UnspecifiedType(Array v)
+  Value(Array v)
       : value(v) {}
-  UnspecifiedType(String v)
+  Value(String v)
       : value(v) {}
-  UnspecifiedType(Number v)
+  Value(Number v)
       : value(v) {}
-  UnspecifiedType(Boolean v)
+  Value(Boolean v)
       : value(v) {}
 
   void operator=(Object const& v) { value = v; }

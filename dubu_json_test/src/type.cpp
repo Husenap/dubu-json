@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 TEST(dubu_json_type, undefined) {
-  dubu::json::UnspecifiedType value;
+  dubu::json::Value value;
   EXPECT_TRUE(value.isNull());
   EXPECT_THROW(value.asObject(), std::bad_any_cast);
   EXPECT_THROW(value.asArray(), std::bad_any_cast);
@@ -14,7 +14,7 @@ TEST(dubu_json_type, undefined) {
 }
 
 TEST(dubu_json_type, defined) {
-  dubu::json::UnspecifiedType value;
+  dubu::json::Value value;
   EXPECT_TRUE(value.isNull());
 
   value = 3.1415;
