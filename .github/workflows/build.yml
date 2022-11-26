@@ -8,6 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
+        build_type: [Debug, Release]
     
     runs-on: ${{ matrix.os }}
 
@@ -16,7 +17,7 @@ jobs:
 
     - name: Generate
       shell: bash
-      run: scripts/gen
+      run: scripts/gen -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
       
     - name: Build
       shell: bash
