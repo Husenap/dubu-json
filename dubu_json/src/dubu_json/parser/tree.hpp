@@ -166,7 +166,7 @@ struct _Tree_node {
   _Nodeptr   _Parent;
   _Nodeptr   _Right;
 
-  _Tree_node(const _Tree_node&)            = delete;
+  _Tree_node(const _Tree_node&) = delete;
   _Tree_node& operator=(const _Tree_node&) = delete;
 
   template <class _Alloc>
@@ -238,7 +238,7 @@ struct _Tree_temp_node {
     _Ptr->_Isnil   = false;
   }
 
-  _Tree_temp_node(const _Tree_temp_node&)            = delete;
+  _Tree_temp_node(const _Tree_temp_node&) = delete;
   _Tree_temp_node& operator=(const _Tree_temp_node&) = delete;
 
   ~_Tree_temp_node() {
