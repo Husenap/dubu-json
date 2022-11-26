@@ -44,11 +44,11 @@ class Parser {
   char hex() {
     char c = peek();
     if (std::isdigit(c)) {
-      return get() - '0';
+      return static_cast<char>(get() - '0');
     } else if (c >= 'a' && c <= 'f') {
-      return get() - 'a' + 10;
+      return static_cast<char>(get() - 'a' + 10);
     } else if (c >= 'A' && c <= 'F') {
-      return get() - 'A' + 10;
+      return static_cast<char>(get() - 'A' + 10);
     }
     throw std::runtime_error("Unexpected hex digit");
   }
