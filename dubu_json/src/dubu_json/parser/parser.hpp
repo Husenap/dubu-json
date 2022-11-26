@@ -235,12 +235,12 @@ public:
 
 }  // namespace detail
 
-static Value parse(std::istream& in) {
+inline Value parse(std::istream& in) {
   detail::Parser parser(in);
   return parser.element();
 }
 
-static Value parse(std::string_view data) {
+inline Value parse(std::string_view data) {
   std::stringstream ss;
   ss << data;
   return parse(ss);
