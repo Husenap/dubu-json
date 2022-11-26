@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace shared {
+namespace dubu::json {
 
 template <class _Alloc, class _Ty>
 using _Rebind_alloc_t = typename std::allocator_traits<_Alloc>::template rebind_alloc<_Ty>;
@@ -1091,11 +1091,11 @@ private:
 
 namespace pmr {
 template <class _Kty, class _Pr = std::less<_Kty>>
-using ordered_set = shared::ordered_set<_Kty, _Pr, std::pmr::polymorphic_allocator<_Kty>>;
+using ordered_set = dubu::json::ordered_set<_Kty, _Pr, std::pmr::polymorphic_allocator<_Kty>>;
 
 template <class _Kty, class _Ty, class _Pr = std::less<_Kty>>
-using ordered_map = shared::
+using ordered_map = dubu::json::
     ordered_map<_Kty, _Ty, _Pr, std::pmr::polymorphic_allocator<std::pair<const _Kty, _Ty>>>;
 }  // namespace pmr
 
-}  // namespace shared
+}  // namespace dubu::json
