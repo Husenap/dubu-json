@@ -3,7 +3,6 @@
 #include <cassert>
 #include <functional>
 #include <limits>
-#include <memory_resource>
 #include <type_traits>
 #include <utility>
 
@@ -1089,14 +1088,5 @@ private:
     return {_Scary->_Insert_node(_Loc._Location, _Inserted), true};
   }
 };
-
-namespace pmr {
-template <class _Kty, class _Pr = std::less<_Kty>>
-using ordered_set = dubu::json::ordered_set<_Kty, _Pr, std::pmr::polymorphic_allocator<_Kty>>;
-
-template <class _Kty, class _Ty, class _Pr = std::less<_Kty>>
-using ordered_map = dubu::json::
-    ordered_map<_Kty, _Ty, _Pr, std::pmr::polymorphic_allocator<std::pair<const _Kty, _Ty>>>;
-}  // namespace pmr
 
 }  // namespace dubu::json
