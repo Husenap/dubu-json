@@ -51,26 +51,16 @@ class Parser {
     return Value{};
   }
 
-  char onenine() {
-    char c = peek();
-    if (c >= '1' && c <= '9') {
-      return get() - '0';
-    }
-    throw std::runtime_error("Unexpected digit");
-  }
-  char digit() {
-    char c = peek();
-    if (c == '0') return get() - '0';
-    return onenine();
-  }
   char hex() {
     char c = peek();
-    if (c >= 'a' && c <= 'f') {
+    if (std::isdigit(c)) {
+      return get() - '0';
+    } else if (c >= 'a' && c <= 'f') {
       return get() - 'a' + 10;
     } else if (c >= 'A' && c <= 'F') {
       return get() - 'A' + 10;
     }
-    return digit();
+    throw std::runtime_error("Unexpected hex digit");
   }
   void escape(std::string& text) {
     switch (get()) {
