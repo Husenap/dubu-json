@@ -2,6 +2,9 @@ set(target_name "dubu_json")
 
 set(src_dubu_json
     "src/dubu_json/parser/parser.hpp"
+    "src/dubu_json/parser/tree.hpp"
+    "src/dubu_json/parser/type.hpp"
+    "src/dubu_json/dummy.cpp"
     "src/dubu_json/dubu_json.hpp")
 
 set(src_files

@@ -2,7 +2,7 @@ set(target_name "dubu_json_test")
 
 set(src_files
     "src/type.cpp"
-    "src/unit.cpp")
+    "src/parser.cpp")
 
 add_executable(${target_name} ${src_files})
 
